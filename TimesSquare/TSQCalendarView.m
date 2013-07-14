@@ -52,7 +52,7 @@
     _tableView.delegate = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    [self addSubview:_tableView];
+    [self addSubview:_tableView];    
 }
 
 - (void)dealloc;
@@ -92,11 +92,6 @@
     } else {
         return [self rowCellClass];
     }
-}
-
-- (void)setScrollEnabled:(BOOL)scrollEnabled
-{
-    self.tableView.scrollEnabled = scrollEnabled;
 }
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor;
@@ -237,11 +232,6 @@
         }
         self.tableView.frame = self.bounds;
     }
-}
-
-- (void)reloadView
-{
-    [self.tableView reloadData];
 }
 
 #pragma mark UITableViewDataSource

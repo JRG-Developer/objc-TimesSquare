@@ -209,10 +209,6 @@
 
 - (void)layoutViewsForColumnAtIndex:(NSUInteger)index inRect:(CGRect)rect;
 {
-    // Move down for the row at the top
-    rect.origin.y += self.columnSpacing;
-    rect.size.height -= (self.bottomRow ? 2.0f : 1.0f) * self.columnSpacing;
-    
     UIButton *dayButton = self.dayButtons[index];
     UIButton *notThisMonthButton = self.notThisMonthButtons[index];
     
@@ -297,56 +293,6 @@
         self.todayDateComponents = [self.calendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:[NSDate date]];
     }
     return _todayDateComponents;
-}
-
-- (UIImage *)todayBackgroundImage
-{
-    if (!_todayBackgroundImage)
-    {
-        _todayBackgroundImage = [[UIImage imageNamed:@"CalendarTodaysDate" type:@"png" bundle:[NSBundle AppOrderCoreBundle]] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
-    }
-    return _todayBackgroundImage;
-}
-
-- (UIImage *)selectedBackgroundImage
-{
-    if (!_selectedBackgroundImage)
-    {
-        _selectedBackgroundImage = [[UIImage imageNamed:@"CalendarSelectedDate" type:@"png" bundle:[NSBundle AppOrderCoreBundle]] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
-    }
-    return _selectedBackgroundImage;
-}
-
-- (UIImage *)notThisMonthBackgroundImage
-{
-    if (!_notThisMonthBackgroundImage)
-    {
-        _notThisMonthBackgroundImage = [[UIImage imageNamed:@"CalendarPreviousMonth" type:@"png" bundle:[NSBundle AppOrderCoreBundle]] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
-    }
-    return _notThisMonthBackgroundImage;
-}
-
-- (UIImage *)backgroundImage
-{
-    return self.bottomRow ? [self backgroundRowBottomImage] : [self backgroundRowImage];
-}
-
-- (UIImage *)backgroundRowImage
-{
-    if (!_backgroundRowImage)
-    {
-        _backgroundRowImage = [UIImage imageNamed:@"CalendarRow" type:@"png" bundle:[NSBundle AppOrderCoreBundle]];
-    }
-    return _backgroundRowImage;
-}
-
-- (UIImage *)backgroundRowBottomImage
-{
-    if (!_backgroundRowBottomImage)
-    {
-        _backgroundRowBottomImage = [UIImage imageNamed:@"CalendarRowBottom" type:@"png" bundle:[NSBundle AppOrderCoreBundle]];
-    }
-    return _backgroundRowBottomImage;
 }
 
 @end

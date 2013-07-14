@@ -57,7 +57,7 @@
  The delegate must adopt the `TSQCalendarViewDelegate` protocol.
  The `TSQCalendarView` class, which does not retain the delegate, invokes each protocol method the delegate implements.
  */
-@property (nonatomic, weak) IBOutlet id<TSQCalendarViewDelegate> delegate;
+@property (nonatomic, weak) id<TSQCalendarViewDelegate> delegate;
 
 /** Whether to pin the header to the top of the view.
  
@@ -70,9 +70,6 @@
  This property is roughly equivalent to the one defined on `UIScrollView` except the snapping is to months rather than integer multiples of the view's bounds.
  */
 @property (nonatomic) BOOL pagingEnabled;
-
-
-@property (nonatomic) BOOL scrollEnabled;
 
 /** The distance from the edges of the view to where the content begins.
  
@@ -106,8 +103,6 @@
  @param animated YES if you want to animate the change in position, NO if it should be immediate.
  */
 - (void)scrollToDate:(NSDate *)date animated:(BOOL)animated;
-
-- (void)reloadView;
 
 @end
 
