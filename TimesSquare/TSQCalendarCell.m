@@ -14,18 +14,15 @@
 @interface TSQCalendarCell ()
 
 @property (nonatomic, assign) NSLocaleLanguageDirection layoutDirection;
-
 @end
-
 
 @implementation TSQCalendarCell
 
 - (id)initWithCalendar:(NSCalendar *)calendar reuseIdentifier:(NSString *)reuseIdentifier;
 {
     self = [self initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
-    if (!self) {
+    if (!self)
         return nil;
-    }
     
     _calendar = calendar;
     NSString *languageCode = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];

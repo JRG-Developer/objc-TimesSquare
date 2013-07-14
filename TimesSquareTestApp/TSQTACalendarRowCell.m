@@ -21,22 +21,23 @@
 
 - (UIImage *)todayBackgroundImage;
 {
-    return [[UIImage imageNamed:@"CalendarTodaysDate.png"] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
+    return [[UIImage imageNamed:@"CalendarTodaysDate"] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
 }
 
 - (UIImage *)selectedBackgroundImage;
 {
-    return [[UIImage imageNamed:@"CalendarSelectedDate.png"] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
+    return [[UIImage imageNamed:@"CalendarSelectedDate"] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
 }
 
 - (UIImage *)notThisMonthBackgroundImage;
 {
-    return [[UIImage imageNamed:@"CalendarPreviousMonth.png"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
+    return [[UIImage imageNamed:@"CalendarPreviousMonth"] stretchableImageWithLeftCapWidth:0 topCapHeight:0];
 }
 
 - (UIImage *)backgroundImage;
 {
-    return [UIImage imageNamed:[NSString stringWithFormat:@"CalendarRow%@.png", self.bottomRow ? @"Bottom" : @""]];
+    NSString *imageName = [NSString stringWithFormat:@"CalendarRow%@.png", self.bottomRow ? @"Bottom" : @""];
+    return [UIImage imageNamed:imageName];
 }
 
 @end

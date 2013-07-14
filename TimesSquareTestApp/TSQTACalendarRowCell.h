@@ -10,5 +10,4 @@
 #import <TimesSquare/TimesSquare.h>
 
 @interface TSQTACalendarRowCell : TSQCalendarRowCell
-
 @end
