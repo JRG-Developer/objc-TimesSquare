@@ -9,14 +9,14 @@
 
 #import "TSQCalendarRowCell.h"
 #import "TSQCalendarView.h"
-
+#import "AOCalendarButton.h"
 
 @interface TSQCalendarRowCell ()
 
 @property (nonatomic, strong) NSArray *dayButtons;
 @property (nonatomic, strong) NSArray *notThisMonthButtons;
-@property (nonatomic, strong) UIButton *todayButton;
-@property (nonatomic, strong) UIButton *selectedButton;
+@property (nonatomic, strong) AOCalendarButton *todayButton;
+@property (nonatomic, strong) AOCalendarButton *selectedButton;
 
 @property (nonatomic, assign) NSInteger indexOfTodayButton;
 @property (nonatomic, assign) NSInteger indexOfSelectedButton;
@@ -42,7 +42,7 @@
     return self;
 }
 
-- (void)configureButton:(UIButton *)button;
+- (void)configureButton:(AOCalendarButton *)button;
 {
     button.titleLabel.font = [UIFont boldSystemFontOfSize:19.f];
     button.titleLabel.shadowOffset = self.shadowOffset;
@@ -51,11 +51,19 @@
     [button setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
+- (Class)rowButtonClass
+{
+    if (!_rowButtonClass)
+        _rowButtonClass = [AOCalendarButton class];
+    
+    return _rowButtonClass;
+}
+
 - (void)createDayButtons;
 {
     NSMutableArray *dayButtons = [NSMutableArray arrayWithCapacity:self.daysInWeek];
     for (NSUInteger index = 0; index < self.daysInWeek; index++) {
-        UIButton *button = [[UIButton alloc] initWithFrame:self.contentView.bounds];
+        AOCalendarButton *button = [[self.rowButtonClass alloc] initWithFrame:self.contentView.bounds];
         [button addTarget:self action:@selector(dateButtonPressed:) forControlEvents:UIControlEventTouchDown];
         [dayButtons addObject:button];
         [self.contentView addSubview:button];
@@ -69,7 +77,7 @@
 {
     NSMutableArray *notThisMonthButtons = [NSMutableArray arrayWithCapacity:self.daysInWeek];
     for (NSUInteger index = 0; index < self.daysInWeek; index++) {
-        UIButton *button = [[UIButton alloc] initWithFrame:self.contentView.bounds];
+        AOCalendarButton *button = [[self.rowButtonClass alloc] initWithFrame:self.contentView.bounds];
         [notThisMonthButtons addObject:button];
         [self.contentView addSubview:button];
         [self configureButton:button];
@@ -84,7 +92,7 @@
 
 - (void)createTodayButton;
 {
-    self.todayButton = [[UIButton alloc] initWithFrame:self.contentView.bounds];
+    self.todayButton = [[self.rowButtonClass alloc] initWithFrame:self.contentView.bounds];
     [self.contentView addSubview:self.todayButton];
     [self configureButton:self.todayButton];
     [self.todayButton addTarget:self action:@selector(todayButtonPressed:) forControlEvents:UIControlEventTouchDown];
@@ -98,7 +106,7 @@
 
 - (void)createSelectedButton;
 {
-    self.selectedButton = [[UIButton alloc] initWithFrame:self.contentView.bounds];
+    self.selectedButton = [[self.rowButtonClass alloc] initWithFrame:self.contentView.bounds];
     [self.contentView addSubview:self.selectedButton];
     [self configureButton:self.selectedButton];
     
@@ -134,9 +142,15 @@
     
     for (NSUInteger index = 0; index < self.daysInWeek; index++) {
         NSString *title = [self.dayFormatter stringFromDate:date];
+        UIImage *itemImage = nil;
+        
+        if ([self.calendarView.delegate respondsToSelector:@selector(calendarView:itemImageForDate:)])
+            itemImage = [self.calendarView.delegate calendarView:self.calendarView itemImageForDate:date];
+        
         NSString *accessibilityLabel = [self.accessibilityFormatter stringFromDate:date];
         [self.dayButtons[index] setTitle:title forState:UIControlStateNormal];
         [self.dayButtons[index] setAccessibilityLabel:accessibilityLabel];
+        [self.dayButtons[index] setItemImage:itemImage];
         [self.notThisMonthButtons[index] setTitle:title forState:UIControlStateNormal];
         [self.notThisMonthButtons[index] setAccessibilityLabel:accessibilityLabel];
         
@@ -156,7 +170,7 @@
                 [self.todayButton setAccessibilityLabel:accessibilityLabel];
                 self.indexOfTodayButton = index;
             } else {
-                UIButton *button = self.dayButtons[index];
+                AOCalendarButton *button = self.dayButtons[index];
                 button.enabled = ![self.calendarView.delegate respondsToSelector:@selector(calendarView:shouldSelectDate:)] || [self.calendarView.delegate calendarView:self.calendarView shouldSelectDate:date];
                 button.hidden = NO;
             }
@@ -209,8 +223,8 @@
 
 - (void)layoutViewsForColumnAtIndex:(NSUInteger)index inRect:(CGRect)rect;
 {
-    UIButton *dayButton = self.dayButtons[index];
-    UIButton *notThisMonthButton = self.notThisMonthButtons[index];
+    AOCalendarButton *dayButton = self.dayButtons[index];
+    AOCalendarButton *notThisMonthButton = self.notThisMonthButtons[index];
     
     dayButton.frame = rect;
     notThisMonthButton.frame = rect;

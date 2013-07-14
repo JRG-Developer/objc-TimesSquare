@@ -85,6 +85,11 @@
     return _rowCellClass;
 }
 
+- (void)setScrollEnabled:(BOOL)scrollEnabled
+{
+    self.tableView.scrollEnabled = scrollEnabled;
+}
+
 - (Class)cellClassForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     if (indexPath.row == 0 && !self.pinsHeaderToTop) {
@@ -160,6 +165,11 @@
 {
   NSInteger section = [self sectionForDate:date];
   [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section] atScrollPosition:UITableViewScrollPositionTop animated:animated];
+}
+
+- (void)reloadData
+{
+    [self.tableView reloadData];
 }
 
 - (TSQCalendarMonthHeaderCell *)makeHeaderCellWithIdentifier:(NSString *)identifier;

@@ -8,6 +8,7 @@
 //  which Square, Inc. licenses this file to you.
 
 #import "TSQCalendarCell.h"
+#import "TSQCalendarButton.h"
 
 /** The `TSQCalendarRowCell` class is a cell that represents one week in the calendar.
  
@@ -57,12 +58,21 @@
  */
 @property (nonatomic, getter = isBottomRow) BOOL bottomRow;
 
+/** The button class to use for day buttons.
+ 
+ This class should conform to TSQCalendarButton or subclass AOCalendarButton.
+*/
+
+@property (nonatomic, strong) Class rowButtonClass;
+
+
 /** Method to select a specific date within the week.
 
  This is funneled through and called by the calendar view, to facilitate deselection of other rows.
  
  @param date The date to select, or nil to deselect all columns.
  */
+
 - (void)selectColumnForDate:(NSDate *)date;
 
 @end

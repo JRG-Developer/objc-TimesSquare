@@ -97,12 +97,27 @@
  */
 @property (nonatomic, strong) Class rowCellClass;
 
+/** Whether or not the underlying tableView should have scroll enabled. 
+ 
+ YES by default.
+*/
+
+@property (nonatomic) BOOL scrollEnabled;
+
 /** Scrolls the receiver until the specified date month is completely visible.
 
  @param date A date that identifies the month that will be visible.
  @param animated YES if you want to animate the change in position, NO if it should be immediate.
  */
+
 - (void)scrollToDate:(NSDate *)date animated:(BOOL)animated;
+
+/** Reloads the underlying tableView.
+ 
+ Should be called for example after changing the first and/or last date.
+ */
+
+- (void)reloadData;
 
 @end
 
@@ -130,5 +145,14 @@
  @param date Midnight on the date being selected.
  */
 - (void)calendarView:(TSQCalendarView *)calendarView didSelectDate:(NSDate *)date;
+
+/* Asks the delegate for for an image to display for a date.
+ 
+ @param calendarView The calendar view that is displaying a date.
+ @param date The date being displayed.
+ @return The image to display or nil.
+ */
+
+- (UIImage *)calendarView:(TSQCalendarView *)calendarView itemImageForDate:(NSDate *)date;
 
 @end
