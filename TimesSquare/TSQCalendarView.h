@@ -8,7 +8,7 @@
 //  which Square, Inc. licenses this file to you.
 
 #import <UIKit/UIKit.h>
-
+#import "AOImageObject.h"
 
 @protocol TSQCalendarViewDelegate;
 
@@ -153,6 +153,6 @@
  @return The image to display or nil.
  */
 
-- (UIImage *)calendarView:(TSQCalendarView *)calendarView itemImageForDate:(NSDate *)date;
+- (id<AOImageObject>)calendarView:(TSQCalendarView *)calendarView imageObjectForDate:(NSDate *)date;
 
 @end

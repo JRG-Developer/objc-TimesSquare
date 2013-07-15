@@ -142,15 +142,16 @@
     
     for (NSUInteger index = 0; index < self.daysInWeek; index++) {
         NSString *title = [self.dayFormatter stringFromDate:date];
-        UIImage *itemImage = nil;
         
-        if ([self.calendarView.delegate respondsToSelector:@selector(calendarView:itemImageForDate:)])
-            itemImage = [self.calendarView.delegate calendarView:self.calendarView itemImageForDate:date];
+        id <AOImageObject> imageObject = nil;
+        
+        if ([self.calendarView.delegate respondsToSelector:@selector(calendarView:imageObjectForDate:)])
+            imageObject = [self.calendarView.delegate calendarView:self.calendarView imageObjectForDate:date];
         
         NSString *accessibilityLabel = [self.accessibilityFormatter stringFromDate:date];
         [self.dayButtons[index] setTitle:title forState:UIControlStateNormal];
         [self.dayButtons[index] setAccessibilityLabel:accessibilityLabel];
-        [self.dayButtons[index] setItemImage:itemImage];
+        [self.dayButtons[index] setImageObject:imageObject];
         [self.notThisMonthButtons[index] setTitle:title forState:UIControlStateNormal];
         [self.notThisMonthButtons[index] setAccessibilityLabel:accessibilityLabel];
         
