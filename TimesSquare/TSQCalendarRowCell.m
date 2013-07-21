@@ -169,6 +169,7 @@
                 self.todayButton.hidden = NO;
                 [self.todayButton setTitle:title forState:UIControlStateNormal];
                 [self.todayButton setAccessibilityLabel:accessibilityLabel];
+                [self.todayButton setImageObject:imageObject];
                 self.indexOfTodayButton = index;
             } else {
                 AOCalendarButton *button = self.dayButtons[index];
